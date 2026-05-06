@@ -1,141 +1,105 @@
-import { useState, useRef } from 'react';
-import { DB, ST_CLS, ACCS } from '../data/database';
+import { useState, useMemo } from "react";
 
-function ProgramModal({ program, onClose }) {
-  if (!program) return null;
-  const stClass = ST_CLS[program.status] || 'ps-o';
-  return (
-    <div
-      className="pick-modal open"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <div className="pick-box" style={{ maxWidth: 520 }}>
-        <button className="pick-close" onClick={onClose}>✕</button>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <span className={`ps ${stClass}`}>{program.status}</span>
-            <span style={{ fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 700, color: 'var(--mute)' }}>
-              {program.type}
-            </span>
-          </div>
-          <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--ink)', marginBottom: 10, lineHeight: 1.25 }}>
-            {program.title}
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
-            <div style={{ fontSize: 12, color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span>📅</span> {program.date}
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--mute)', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span>📂</span> {program.type}
-            </div>
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--mute)', lineHeight: 1.85 }}>{program.desc}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+export default function ProgramsSection({ programs = { list: [], featured: null } }) {
+  const [search, setSearch] = useState("");
 
-export default function ProgramsSection() {
-  const [search, setSearch] = useState('');
-  const [selectedProgram, setSelectedProgram] = useState(null);
-  const wrapRef = useRef(null);
+  const processedList = useMemo(() => {
+    const list = programs.list || [];
+    const s = search.toLowerCase();
+    if (!s) return list;
 
-  const featuredProgram =
-    DB.programs.find((p) => p.type === 'Flagship Event') || DB.programs[0];
+    return list.filter(p =>
+      p.title?.toLowerCase().includes(s) ||
+      p.desc?.toLowerCase().includes(s) ||
+      p.badge?.toLowerCase().includes(s) ||
+      p.start?.toLowerCase().includes(s)
+    );
+  }, [programs.list, search]);
 
-  const filtered = DB.programs.filter(
-    (p) =>
-      p.id !== featuredProgram.id &&
-      (p.title.toLowerCase().includes(search.toLowerCase()) ||
-        p.type.toLowerCase().includes(search.toLowerCase()) ||
-        p.desc.toLowerCase().includes(search.toLowerCase()))
-  );
-
-  const scrollList = (dir) => {
-    if (wrapRef.current) wrapRef.current.scrollBy({ top: dir * 180, behavior: 'smooth' });
-  };
+  const featured = programs.featured;
+  
+  const gridItems = search 
+    ? processedList 
+    : processedList.filter(p => p.title !== featured?.title);
 
   return (
-    <>
-      <section id="sec-programs" className="sec bg-cream">
-        <div className="wrap">
-          <div className="eye">Programs &amp; Events</div>
-          <div className="h2" style={{ marginBottom: 18 }}>
-            Ministry Programs &amp; Upcoming Events
-          </div>
+    <section id="sec-programs" className="sec bg-[var(--bg-alt)] reveal">
+      <div className="wrap">
+        <div className="eye">Programs &amp; Events</div>
+        <div className="prog-title h2 mb-8">Get Involved with Us</div>
 
-          {/* Featured Banner */}
-          <div className="prog-feat">
+        {!search && featured && (
+          <div className="prog-feat mb-8">
             <div className="prog-feat-bg">
               <img
-                src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1200&auto=format&fit=crop"
-                alt=""
+                src={featured.image || "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1000&auto=format&fit=crop"}
+                alt={featured.title}
               />
             </div>
             <div className="prog-feat-inner">
-              <div className="pf-tag">{featuredProgram.type} · {featuredProgram.date}</div>
-              <div className="pf-title">{featuredProgram.title}</div>
-              <div className="pf-meta">{featuredProgram.desc}</div>
+              <div className="pf-tag" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                {featured.type}
+                <span className="pf-latest" style={{ margin: 0 }}>{featured.badge}</span>
+              </div>
+              <div className="pf-title">{featured.title}</div>
+              <div className="pf-meta">{featured.start}{featured.end ? ` — ${featured.end}` : ''}</div>
             </div>
           </div>
+        )}
 
-          {/* Toolbar */}
-          <div className="prog-toolbar">
-            <div className="prog-search-wrap">
-              <i className="fas fa-search prog-search-icon" />
-              <input
-                type="text"
-                className="prog-search"
-                placeholder="Search programs &amp; events…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            <div className="prog-scroll-btns">
-              <button onClick={() => scrollList(-1)} title="Scroll up">&#8679;</button>
-              <button onClick={() => scrollList(1)} title="Scroll down">&#8681;</button>
-            </div>
-          </div>
-
-          {/* Cards */}
-          <div className="ev-cards-wrap" ref={wrapRef}>
-            <div className="ev-cards">
-              {filtered.length === 0 ? (
-                <div className="ev-no-results">No programs found.</div>
-              ) : (
-                filtered.map((prog, i) => {
-                  const statusClass =
-                    prog.status === 'Upcoming'
-                      ? 'ev-upcoming'
-                      : prog.status === 'Open'
-                      ? 'ev-open'
-                      : prog.status === 'Active'
-                      ? 'ev-open'
-                      : 'ev-ended';
-                  const pillClass = ST_CLS[prog.status] || 'ps-o';
-                  return (
-                    <div
-                      key={prog.id}
-                      className={`ev-c ${statusClass}`}
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => setSelectedProgram(prog)}
-                    >
-                      <div className="ev-status-dot" />
-                      <div className="ev-date">{prog.date}</div>
-                      <div className="ev-title">{prog.title}</div>
-                      <div className="ev-desc">{prog.desc}</div>
-                      <span className={`ev-pill ${pillClass}`}>{prog.status}</span>
-                    </div>
-                  );
-                })
-              )}
-            </div>
+        <div style={{ marginTop: 24, marginBottom: 24 }}>
+          <div className="prog-search-wrap" style={{ width: '100%', position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <span className="prog-search-icon" style={{ display: 'flex' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input
+              className="prog-search-input"
+              style={{ display: 'block', width: '100%', paddingLeft: 42, paddingRight: 14, paddingTop: 12, paddingBottom: 12 }}
+              placeholder="Search programs..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
-      </section>
 
-      <ProgramModal program={selectedProgram} onClose={() => setSelectedProgram(null)} />
-    </>
+        <div className="ev-cards-wrap" style={{ maxHeight: '600px', overflowY: 'auto', paddingRight: '8px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {gridItems.length > 0 ? (
+              gridItems.map((p, i) => (
+                <div
+                  key={i}
+                  className={`ev-c ${p.status === "upcoming" ? "ev-upcoming"
+                    : p.status === "open" ? "ev-open"
+                      : "ev-ended"
+                    }`}
+                >
+                  <div className="ev-status-dot" style={{ backgroundColor: `var(--badge-${p.status}-bg, var(--red))` }} />
+                  <div className="ev-date">{p.start}</div>
+                  <h3 className="ev-title">{p.title}</h3>
+                  <p className="ev-desc">{p.desc}</p>
+                  <span 
+                    className="ev-pill"
+                    style={{ 
+                      backgroundColor: `var(--badge-${p.status}-bg, #f3f4f6)`,
+                      color: `var(--badge-${p.status}-text, #374151)`
+                    }}
+                  >
+                    {p.badge}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className="ev-no-results col-span-full">
+                {search ? `No programs found matching "${search}"` : "No programs available."}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

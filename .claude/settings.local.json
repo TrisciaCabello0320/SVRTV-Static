@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *just print all the task that you have donde)",
+      "Bash(node *)"
+    ]
+  }
+}

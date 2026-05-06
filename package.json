@@ -5,17 +5,35 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:backend": "node server.js",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "framer-motion": "^12.38.0",
+    "googleapis": "^171.4.0",
+    "lucide-react": "^1.8.0",
+    "motion": "^12.38.0",
+    "papaparse": "^5.5.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.2"
+    "autoprefixer": "^10.5.0",
+    "concurrently": "^9.2.1",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.19",
+    "vite": "^7.3.2"
   }
 }

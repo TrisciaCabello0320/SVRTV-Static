@@ -25,20 +25,20 @@ export const DB = {
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Board Chairman",
-      color: "1B3A6B",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80",
+      color: "ff474f",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=80",
       bio: "Leads the foundation's board with decades of experience in Catholic media and nonprofit governance.",
+      quote: "True leadership is guided by faith and committed to service.",
     },
     {
       id: 2,
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Executive Director",
-      color: "7c3aed",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      color: "c92f36",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80",
       bio: "Oversees all operations and strategic direction of the foundation.",
+      quote: "Every decision we make is a step toward greater evangelization.",
     },
     {
       id: 3,
@@ -46,49 +46,49 @@ export const DB = {
       name: "Juan Dela Cruz",
       role: "Director of Programs",
       color: "0d9488",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=80",
       bio: "Manages and develops all ministry programs and broadcast initiatives.",
+      quote: "Our programs are the heartbeat of our outreach to the community.",
     },
     {
       id: 4,
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Community Relations",
-      color: "c9932e",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      color: "d9954e",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&auto=format&fit=crop&q=80",
       bio: "Builds and maintains relationships with partner communities and organizations.",
+      quote: "Strong communities are built on trust, love, and shared purpose.",
     },
     {
       id: 5,
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Head of Innovation",
-      color: "e05c3a",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      color: "ff8a8f",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=80",
       bio: "Drives technological advancement and digital media strategies.",
+      quote: "Innovation allows us to spread the Word further and faster.",
     },
     {
       id: 6,
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Creative Director",
-      color: "e11d48",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      color: "2563eb",
+      image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&auto=format&fit=crop&q=80",
       bio: "Shapes the visual identity and creative output across all platforms.",
+      quote: "Beauty in design is a reflection of divine creativity.",
     },
     {
       id: 7,
       initial: "JD",
       name: "Juan Dela Cruz",
       role: "Operations Lead",
-      color: "7f1d1d",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
+      color: "c92f36",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=80",
       bio: "Ensures smooth day-to-day operations and resource management.",
+      quote: "Excellence in operations ensures our mission never stops.",
     },
   ],
 
@@ -159,6 +159,7 @@ export const DB = {
       date: "June 14–16, 2025",
       desc: "National gathering of Catholic media evangelizers, partners, and volunteers.",
       status: "Upcoming",
+      image: "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1000&auto=format&fit=crop",
     },
     {
       id: 2,
@@ -256,38 +257,37 @@ export const DB = {
 };
 
 export const SECTIONS = [
-  { id: "home",     label: "Home",             icon: "🏠" },
-  { id: "who",      label: "What We Are",       icon: "✝" },
-  { id: "gallery",  label: "Gallery",           icon: "🖼️" },
+  { id: "home", label: "Home", icon: "🏠" },
+  { id: "who", label: "What We Are", icon: "✝" },
+  { id: "what", label: "What We Do", icon: "🎬" },
   { id: "programs", label: "Programs & Events", icon: "📅" },
-  { id: "awards",   label: "Awards",            icon: "🏆" },
 ];
 
 export const CAT_CLS = {
-  "Gold Award":      "pg",
-  Platinum:          "pyo",
-  "Silver Award":    "pbg",
-  Featured:          "pb",
-  "Special Citation":"pdv",
-  Certified:         "pbg",
+  "Gold Award": "pg",
+  Platinum: "pyo",
+  "Silver Award": "pbg",
+  Featured: "pb",
+  "Special Citation": "pdv",
+  Certified: "pbg",
 };
 
 export const ST_CLS = {
-  Active:   "ps-a",
+  Active: "ps-a",
   Upcoming: "ps-u",
-  Open:     "ps-o",
+  Open: "ps-o",
 };
 
 export const STRIPE_COLORS = {
-  "Gold Award":      "#c9932e",
-  Platinum:          "#4338ca",
-  "Silver Award":    "#64748b",
-  Featured:          "#0d9488",
-  "Special Citation":"#7c3aed",
-  Certified:         "#16a34a",
+  "Gold Award": "#d9954e",
+  Platinum: "#4338ca",
+  "Silver Award": "#64748b",
+  Featured: "#0d9488",
+  "Special Citation": "#7c3aed",
+  Certified: "#16a34a",
 };
 
 export const ACCS = [
-  "#1B3A6B","#7c3aed","#2563eb","#0d9488",
-  "#c9932e","#e05c3a","#e11d48","#7f1d1d",
+  "#ff474f", "#c92f36", "#2563eb", "#0d9488",
+  "var(--color-accent)", "#ff8a8f", "#ffe5e6", "#111827",
 ];

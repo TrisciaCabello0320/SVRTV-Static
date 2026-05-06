@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import { DB, STRIPE_COLORS } from '../data/database';
 
-export default function AwardsSection() {
-  const sorted = [...DB.awards].sort((a, b) => b.year - a.year);
+export default function AwardsSection({ awards = [] }) {
+  const awardData = awards.length > 0 ? awards : DB.awards;
+  const sorted = useMemo(() => [...awardData].sort((a, b) => b.year - a.year), [awardData]);
 
   return (
     <section id="sec-awards" className="sec bg-w">
