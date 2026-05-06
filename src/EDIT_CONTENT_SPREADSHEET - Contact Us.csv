@@ -1,0 +1,35 @@
+"📞 CONTACT US — Footer contact details, social links, and accreditation",,,,
+ⓘ Edit the VALUE column only. FIELD keys connect directly to footer elements on the website.,,,,
+FIELD,VALUE,TYPE,NOTES / EXAMPLE,ACTIVE
+▸ CONTACT DETAILS,,,,
+contact_address,"12 Shepherd's Way, Quezon City",Text,Physical office address shown in footer.,Yes
+contact_email,info@svrtfi.org,Email,Clickable email link in footer.,Yes
+contact_phone,#ERROR!,Phone,Phone number. Format: +XX (X) XXXX XXXX.,Yes
+contact_hours,"Mon–Fri, 8AM–5PM PH",Text,Office hours shown below contact details.,Yes
+contact_map_embed,,URL,Google Maps embed URL (optional).,No
+▸ SOCIAL MEDIA LINKS,,,,
+social_facebook,https://feastmercyministries.com/,URL,Facebook Page URL.,Yes
+social_youtube,https://www.youtube.com/channel/UC5U5wofi9KAbuJmJ4miUjPw,URL,YouTube Channel URL.,Yes
+social_instagram,https://instagram.com/svrtfi_official,URL,Instagram Profile URL.,Yes
+social_podcast,https://svrtfi.org/podcast,URL,Podcast URL.,Yes
+social_radio,https://feastradio.ph/,URL,Radio stream URL.,Yes
+social_website,https://svrtv.com/,URL,Official website URL.,Yes
+▸ FOOTER BRANDING,,,,
+footer_brand_name,Shepherd's Voice,Text,Large brand name in footer column 1.,Yes
+footer_brand_line2,Radio and Television Foundation Inc.,Text,Smaller line below brand name.,Yes
+footer_description,"An all-media, non-stock, non-profit Catholic media organization dedicated to evangelization through radio, television, print, and digital platforms.",Long Text,Footer paragraph description.,Yes
+footer_copyright,© 2012–2026 SVRTFI · All Rights Reserved,Text,Copyright line in footer bottom bar.,Yes
+▸ ACCREDITATION,,,,
+accred_pcnc_label,Accredited by,Text,Small label before PCNC link.,Yes
+accred_pcnc_name,PCNC,Text,Accreditation body name.,Yes
+accred_pcnc_url,https://pcnc.com.ph,URL,Link to PCNC website.,Yes
+accred_pcnc_years,5,Number,Years of current accreditation.,Yes
+▸ QUICK LINKS (Footer Nav),,,,
+footer_link_1_label,Home,Text,Label for footer quick link 1.,Yes
+footer_link_1_anchor,#sec-home,Anchor,Section anchor ID.,Yes
+footer_link_2_label,What We Are,Text,Label for footer quick link 2.,Yes
+footer_link_2_anchor,#sec-who,Anchor,Section anchor ID.,Yes
+footer_link_3_label,Programs & Events,Text,Label for footer quick link 3.,Yes
+footer_link_3_anchor,#sec-programs,Anchor,Section anchor ID.,Yes
+footer_link_4_label,Awards,Text,Label for footer quick link 4.,Yes
+footer_link_4_anchor,#sec-awards,Anchor,Section anchor ID.,Yes
