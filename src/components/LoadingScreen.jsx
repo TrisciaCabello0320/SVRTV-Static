@@ -5,7 +5,7 @@ export default function LoadingScreen() {
   const [removed, setRemoved] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setDone(true), 1200);
+    const timer = setTimeout(() => setDone(true), 3200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -27,30 +27,16 @@ export default function LoadingScreen() {
       <div className="loader-blob lb4" />
       <div className="loader-blob lb5" />
       <div className="loader-logo">
-        <svg
+        <img
           className="loader-emblem"
+          src="/SVRTV.png"
+          alt="SVRTV Logo"
           width="90"
           height="90"
-          viewBox="0 0 90 90"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="90" height="90" rx="20" fill="white" fillOpacity="0.15" />
-          <text
-            x="45"
-            y="58"
-            textAnchor="middle"
-            fontSize="36"
-            fontWeight="900"
-            fill="white"
-            fontFamily="Montserrat,sans-serif"
-          >
-            SV
-          </text>
-        </svg>
+        />
         <div className="loader-name">Shepherd's Voice</div>
         <div className="loader-sub">Radio &amp; Television Foundation Inc.</div>
-        <div className="loader-dots"> 
+        <div className="loader-dots">
           <span /><span /><span />
         </div>
       </div>

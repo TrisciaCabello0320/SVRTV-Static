@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
-import { SECTIONS } from '../data/database';
-import { useScrollToFooter, useNavScroll } from '../hooks/useScroll';
+import { useScrollToFooter, useNavScroll, useFooterVisible } from '../hooks/useScroll';
 
-export default function Navigation({ onNavigate }) {
+export default function Navigation({ onNavigate, activeSection, org = {} }) {
+  const dynamicSections = [
+    { id: "home", label: org.nav_home || "Home" },
+    { id: "who", label: org.nav_who || "What We Are" },
+    { id: "what", label: org.nav_what || "What We Do" },
+    { id: "programs", label: org.nav_programs || "Programs & Events" },
+  ];
+  const logoUrl = org.logo_url || "/SVRTV.png";
   const [drawerOpen, setDrawerOpen] = useState(false);
   const scrolled = useNavScroll();
   const scrollToFooter = useScrollToFooter();
+  const footerVisible = useFooterVisible();
 
   // Close drawer on resize past 960px
   useEffect(() => {
@@ -20,6 +27,12 @@ export default function Navigation({ onNavigate }) {
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, []);
+
+  // Add/remove body classes based on active section (hide nav highlight at footer)
+  useEffect(() => {
+    document.body.classList.remove('at-contact', 'at-footer');
+    return () => document.body.classList.remove('at-contact', 'at-footer');
+  }, [activeSection]);
 
   // Lock body scroll when drawer open
   useEffect(() => {
@@ -43,50 +56,28 @@ export default function Navigation({ onNavigate }) {
         {/* Brand */}
         <a className="brand" href="#" onClick={(e) => { e.preventDefault(); handleNav('home'); }}>
           <div className="brand-logo-img">
-            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="42" height="42" rx="10" fill="url(#brandGrad)"/>
-              <text x="21" y="28" textAnchor="middle" fontSize="18" fontWeight="900" fill="white" fontFamily="Montserrat,sans-serif">SV</text>
-              <defs>
-                <linearGradient id="brandGrad" x1="0" y1="0" x2="42" y2="42">
-                  <stop stopColor="#ff474f"/>
-                  <stop offset="1" stopColor="#c9932e"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <img src={logoUrl} alt="Logo" width="42" height="42" style={{ objectFit: 'contain' }} />
           </div>
           <div className="brand-text">
-            <span className="bt1">Shepherd's Voice</span>
-            <span className="bt2">Radio and Television</span>
-            <span className="bt3">Foundation Inc.</span>
-          </div>
-
-          {/* Dropdown */}
-          <div className="brand-dropdown">
-            {SECTIONS.map((s) => (
-              <a key={s.id} href="#" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleNav(s.id); }}>
-                <span className="bd-ic">{s.icon}</span>{s.label}
-              </a>
-            ))}
-            <div className="bd-divider" />
-            <a href="#" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleContact(); }}>
-              <span className="bd-ic">📞</span>Contact Us
-            </a>
+            <span className="bt1">{org.logo_name1 || "Shepherd's Voice"}</span>
+            <span className="bt2">{org.logo_name2 || "Radio and Television"}</span>
+            <span className="bt3">{org.logo_name3 || "Foundation Inc."}</span>
           </div>
         </a>
 
         {/* Desktop nav links */}
         <div className="nav-right">
-          {SECTIONS.map((s) => (
-            <a key={s.id} href="#" onClick={(e) => { e.preventDefault(); handleNav(s.id); }}>
+          {dynamicSections.map((s) => (
+            <a key={s.id} href="#" onClick={(e) => { e.preventDefault(); handleNav(s.id); }} className={activeSection === s.id && activeSection !== null && !footerVisible ? 'nact' : ''}>
               <span className="nav-lbl">{s.label}</span>
             </a>
           ))}
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); handleContact(); }}
-            style={{ color: 'var(--navy)', background: 'var(--goldp)', border: '1.5px solid rgba(201,147,46,.3)' }}
+            className={`nav-contact ${footerVisible ? 'nact' : ''}`}
           >
-            <span className="nav-lbl">Contact Us</span>
+            <span className="nav-lbl" style={footerVisible ? { color: 'var(--color-text-muted)' } : {}}>Contact Us</span>
           </a>
         </div>
 
@@ -102,13 +93,13 @@ export default function Navigation({ onNavigate }) {
 
       {/* Mobile Drawer */}
       <div className={`drawer${drawerOpen ? ' open' : ''}`} aria-hidden={!drawerOpen}>
-        {SECTIONS.map((s) => (
+        {dynamicSections.map((s) => (
           <a key={s.id} href="#" onClick={(e) => { e.preventDefault(); handleNav(s.id); }}>
-            <span className="d-ic">{s.icon}</span>{s.label}
+            {s.label}
           </a>
         ))}
         <a href="#" onClick={(e) => { e.preventDefault(); handleContact(); }}>
-          <span className="d-ic">📞</span>Contact Us
+          Contact Us
         </a>
       </div>
     </>
